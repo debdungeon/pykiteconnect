@@ -334,7 +334,8 @@ class KiteConnect(object):
                     squareoff=None,
                     stoploss=None,
                     trailing_stoploss=None,
-                    tag=None):
+                    tag=None,
+                    user_ip=None):
         """Place an order."""
         params = locals()
         del(params["self"])
@@ -831,6 +832,10 @@ class KiteConnect(object):
     def _request(self, route, method, parameters=None):
         """Make an HTTP request."""
         params = parameters.copy() if parameters else {}
+        user_ip = None
+        if 'user_ip' in params and params['user_ip']:
+            user_ip = params['user_ip']
+            del(params['user_ip'])
 
         # Form a restful URL
         uri = self._routes[route].format(**params)
@@ -841,7 +846,8 @@ class KiteConnect(object):
             "X-Kite-Version": "3",  # For version 3
             "User-Agent": self._user_agent()
         }
-
+        if user_ip:
+            headers['X-Kite-User-IP'] = user_ip
         if self.api_key and self.access_token:
             # set authorization header
             auth_header = self.api_key + ":" + self.access_token
