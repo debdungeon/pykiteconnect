@@ -12,7 +12,7 @@ from setuptools.command.install import install as _install
 current_dir = os.path.abspath(os.path.dirname(__file__))
 
 about = {}
-with open(os.path.join(current_dir, "kiteconnect", "__version__.py"), "r", "utf-8") as f:
+with open(os.path.join(current_dir, "TTkiteconnect", "__version__.py"), "r", "utf-8") as f:
     exec(f.read(), about)
 
 # Public URL to download windows wheel
@@ -92,7 +92,7 @@ setup(
     url=about["__url__"],
     download_url=about["__download_url__"],
     license=about["__license__"],
-    packages=["kiteconnect"],
+    packages=["TTkiteconnect"],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
@@ -123,5 +123,5 @@ setup(
         "doc": ["pdoc"],
         ':sys_platform=="win32"': ["pywin32"]
     },
-    cmdclass={"install": install, "bdist_wheel": FakeBdist}
+    #cmdclass={"install": install, "bdist_wheel": FakeBdist}
 )
